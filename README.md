@@ -7,6 +7,7 @@ A simple character device driver for reading a Bosch BMP180 sensor module
 - https://elinux.org/Interfacing_with_I2C_Devices#Beagleboard_I2C2_Enable
 - https://beagleboard.org/static/BBxMSRM_latest.pdf
 - https://cdn-shop.adafruit.com/datasheets/BST-BMP180-DS000-09.pdf
+- https://www.howtoforge.com/reading-files-from-the-linux-kernel-space-module-driver-fedora-14
 
 ## I2C using the bmp280 driver
 The IIO bmp280 driver in mainline linux exposes the sensor readouts to sysfs.
@@ -57,3 +58,14 @@ $ cat /sys/bus/i2c/devices/1-0077/iio\:device1/in_*_input
 ```
 
 [ds_bmp180]: https://cdn-shop.adafruit.com/datasheets/BST-BMP180-DS000-09.pdf
+
+## Using the drvoscd module
+This requires the bmp280 driver is loaded and `/sys/bus/i2c/devices/1-0077/iio\:device1/in_*_input` is available.
+```
+$ git clone https://github.com/pgils/IITE-DRVO.git
+$ cd IITE-DRVO
+$ make insert
+$ echo "pressure"|sudo tee /dev/drvoscd
+$ sudo cat /dev/drvoscd
+101.792000000
+```
