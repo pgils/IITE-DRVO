@@ -25,8 +25,8 @@ static struct class*    drvoscdClass = NULL;
 static struct device*   drvoscdDevice = NULL;
 
 static char**           sysfs_path = NULL;
-char*                   sysfs_file_temp = "/sys/bus/i2c/devices/1-0077/iio:device1/in_temp_input";
-char*                   sysfs_file_pres = "/sys/bus/i2c/devices/1-0077/iio:device1/in_pressure_input";
+char*                   sysfs_file_temp = "/sys/bus/iio/devices/iio:device0/in_temp_input";
+char*                   sysfs_file_pres = "/sys/bus/iio/devices/iio:device0/in_pressure_input";
 
 
 static int     dev_open(struct inode *, struct file *);
