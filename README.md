@@ -9,6 +9,7 @@ A simple character device driver for reading a Bosch BMP180 sensor module
 - https://cdn-shop.adafruit.com/datasheets/BST-BMP180-DS000-09.pdf
 - https://www.howtoforge.com/reading-files-from-the-linux-kernel-space-module-driver-fedora-14
 
+# Testing the driver
 ## I2C using the bmp280 driver
 The IIO bmp280 driver in mainline linux exposes the sensor readouts to sysfs.
 
@@ -68,4 +69,25 @@ $ make insert
 $ echo "pressure"|sudo tee /dev/drvoscd
 $ sudo cat /dev/drvoscd
 101.792000000
+```
+
+# Integrating into IITE-LINUX-xM
+Compile the `drvoscd` driver for [IITE-LINUX-xM][repo_lxm]
+
+[repo_lxm]: https://github.com/pgils/IITE-LINUX-xM:
+```
+$ cd linux-stable
+$ make ARCH=${CLFS_ARCH} CROSS_COMPILE=${CLFS_TARGET}- \
+    INSTALL_MOD_PATH=${CLFS}/targetfs modules_install
+```
+```
+$ git clone https://github.com/pgils/IITE-DRVO.git
+$ cd IITE-DRVO
+$ make ARCH=${CLFS_ARCH} CROSS_COMPILE=${CLFS_TARGET}- \
+        INSTALL_MOD_PATH=${CLFS_TARGET_FS} \
+        -C ${CLFS_TARGET_FS}/lib/modules/5.6.12/build \
+        M=$PWD modules_install
+```
+```
+$ cp arch/arm/boot/{zImage,dts/omap3-beagle-xm.dtb} ${CLFS_TARGET_FS}/boot/
 ```
