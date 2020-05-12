@@ -1,6 +1,8 @@
 *.o
+*.a
 *.ko
-*.mod.*
+*.mod*
+*.dwo
 *.order
 *.symvers
 .tmp_versions
