@@ -77,6 +77,7 @@ Compile the `drvoscd` driver for [IITE-LINUX-xM][repo_lxm]
 [repo_lxm]: https://github.com/pgils/IITE-LINUX-xM:
 ```
 $ cd linux-stable
+$ git apply ../IITE-DRVO/patches/0001-dts-omap-beagle-xm-map-bmp180-to-I2C2.patch
 $ make ARCH=${CLFS_ARCH} CROSS_COMPILE=${CLFS_TARGET}- \
     INSTALL_MOD_PATH=${CLFS}/targetfs modules_install
 ```

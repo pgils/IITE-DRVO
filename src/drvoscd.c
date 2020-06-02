@@ -10,6 +10,7 @@
 #include <linux/fs.h>
 #include <linux/uaccess.h>
 #include <linux/string.h>
+#include <linux/mod_devicetable.h>
 
 #define DEVICE_NAME "drvoscd"   /* DRiVerOntwikkeling Sensor Character Driver */
 #define CLASS_NAME  "drvo"
@@ -19,6 +20,12 @@
 MODULE_LICENSE("Dual MIT/GPL");
 MODULE_DESCRIPTION("A simple character device driver");
 MODULE_VERSION("0.1");
+
+static const struct of_device_id of_drvoscd_match_tbl[] = {
+    { .compatible = "bosch,bmp180", },
+    { /* end */ }
+};
+MODULE_DEVICE_TABLE(of, of_drvoscd_match_tbl);
 
 static int              majorNumber;
 static struct class*    drvoscdClass = NULL;

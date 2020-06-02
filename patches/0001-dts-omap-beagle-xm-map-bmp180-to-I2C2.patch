@@ -1,0 +1,28 @@
+From bad8be77249543788d29162b48f5c75b4103b17a Mon Sep 17 00:00:00 2001
+From: Pelle van Gils <pelle@vangils.xyz>
+Date: Mon, 11 May 2020 22:16:21 +0000
+Subject: [PATCH] dts/omap-beagle-xm: map bmp180 to I2C2
+
+---
+ arch/arm/boot/dts/omap3-beagle-xm.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm/boot/dts/omap3-beagle-xm.dts b/arch/arm/boot/dts/omap3-beagle-xm.dts
+index 125ed933ca75..927677ca2087 100644
+--- a/arch/arm/boot/dts/omap3-beagle-xm.dts
++++ b/arch/arm/boot/dts/omap3-beagle-xm.dts
+@@ -302,6 +302,11 @@
+ 
+ &i2c2 {
+ 	clock-frequency = <400000>;
++
++	pressure@77 {
++		compatible = "bosch,bmp180";
++		reg = <0x77>;
++	};
+ };
+ 
+ &i2c3 {
+-- 
+2.20.1
+
