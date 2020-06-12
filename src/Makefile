@@ -1,17 +1,22 @@
-MOD_DIR  := $(shell pwd)
-MOD_NAME := drvoscd.ko
-SUDO     := sudo
-obj-m += drvoscd.o
+KERNELRELEASE ?= $(shell uname -r)
+KERNELDIR ?= /lib/modules/$(KERNELRELEASE)/build
+PREFIX ?= /usr
+DESTDIR ?=
+SRCDIR ?= $(PREFIX)/src
+DEPMOD ?= depmod
 
-all:
-	make -C /lib/modules/$(shell uname -r)/build M=${MOD_DIR} modules
+PWD := $(shell pwd)
 
-insert: all remove
-	${SUDO} insmod ${MOD_NAME}
+all: module
 
-remove:
-	@-${SUDO} rmmod ${MOD_NAME}
+ifneq ($(V),1)
+MAKEFLAGS += --no-print-directory
+endif
+
+module:
+	@$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=${MOD_DIR} clean
+	@$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
 
+.PHONY: all module clean
