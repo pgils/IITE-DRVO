@@ -4,6 +4,7 @@ PREFIX ?= /usr
 DESTDIR ?=
 SRCDIR ?= $(PREFIX)/src
 DEPMOD ?= depmod
+obj-m += drvoscd.o
 
 PWD := $(shell pwd)
 
